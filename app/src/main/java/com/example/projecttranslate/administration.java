@@ -15,13 +15,14 @@ public class administration extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.administration);
-        btnClose = (Button) findViewById(R.id.btnClose);
+        btnClose = (Button) findViewById(R.id.btnSignOut);
         btnClose.setOnClickListener(corkyListener);
+        Toast.makeText(this, "Bienvenido administrador", Toast.LENGTH_SHORT).show();
     }
 
     private View.OnClickListener corkyListener = new View.OnClickListener() {
         public void onClick(View v) {
-            if (v.getId() == R.id.btnClose)  //option false E-O
+            if (v.getId() == R.id.btnSignOut)  //option false E-O
             {
                 finish();
                /* String word= readTranslate(editWordO.getText().toString(),true);

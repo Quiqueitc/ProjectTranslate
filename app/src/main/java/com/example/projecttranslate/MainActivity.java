@@ -2,6 +2,8 @@ package com.example.projecttranslate;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
@@ -73,50 +76,58 @@ public class MainActivity extends AppCompatActivity implements dialog.returnDato
     @Override
     public void returnDatos(String data) {
         this.data=data;
-        titulo.setText(data);
-        Toast.makeText(context, "yaaa:  "+data, Toast.LENGTH_LONG).show();
-                /*Intent intent2 = new Intent (v.getContext(), administration.class);
-                startActivity(intent2);
-                Toast.makeText(MainActivity.this, "clic otomi", Toast.LENGTH_SHORT).show();*/
-        Toast.makeText(context, "datas    "+data, Toast.LENGTH_LONG).show();
+        signInValite(data);
     }
-
-    /*public void onClick (View v)
+    public  void signInValite(final String pass)  //palabra a traducir y si option es true es te O-E si es false es de E-O
     {
 
-        // Para tener control se   condiciona la identificacion del boton al que se le dio click     // de estaforma solo se ejecuta      el codigo correspondiente a ese boton
-        /*if (v.getId() == R.id.btnSpanish) {
-
-        }*
-        if (v.getId() == R.id.btnOtomi) {
-            setContentView(R.layout.otomilanguage);
-            Toast.makeText(this, "Clic in otomi", Toast.LENGTH_SHORT).show();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        if (isNetworkConnected(MainActivity.this) == true) {
+            mDatabase.child("administradores").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange( DataSnapshot dataSnapshot) {
+                    for(final DataSnapshot snapshot: dataSnapshot.getChildren()){
+                        Log.e("Data  ",snapshot.getValue()+"");
+                        mDatabase.child("administradores").child(snapshot.getKey()).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                administrators ad = snapshot.getValue(administrators.class);
+                                String contrasena = ad.getContrasena();
+                                Long id = ad.getId_admin();
+                                Log.e("pass:   ", contrasena + "    OTOMI:   " + id + "   search: " + pass);
+                                if (pass.equalsIgnoreCase(contrasena)) {
+                                    Intent intent2 = new Intent (getApplicationContext(), administration.class);
+                                    startActivity(intent2);
+                                }
+                            }
+                            @Override
+                            public void onCancelled( DatabaseError databaseError) {
+                            }
+                        });
+                    }
+                    Toast.makeText(context, "Error en contraseña", Toast.LENGTH_SHORT).show();
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
         }
-        if (v.getId() == R.id.btnLoginIn) {
-            setContentView(R.layout.administration);
-            Toast.makeText(this, "Clic in LOgin", Toast.LENGTH_SHORT).show();
-        }
-        if (v.getId() == R.id.btnClose) {
-
-            Toast.makeText(this, "BYE", Toast.LENGTH_SHORT).show();
-        }
-      /*  if (v.getId() == R.id.btnTranslateEO)  //option false E-O
+        else
         {
-            editWordE=(EditText) btnSpanish.findViewById(R.id.editWordE);
-            editWordO=(EditText) findViewById(R.id.editWordO);
-            System.out.println("text  "+editWordE.getText().toString()+"   el otro    "+editWordO.getText().toString());
-            String word= readTranslate(editWordE.getText().toString(),false);
-            txtTranslationO.setText((word==null)?"No encontrada":word);
-            Toast.makeText(this, "esp-oto", Toast.LENGTH_SHORT).show();
-        }*
-        if (v.getId() == R.id.btnTranslateOE) {
-
-            Toast.makeText(this, "oto-esp", Toast.LENGTH_SHORT).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setMessage("Conexión incorrecta")
+                    .setTitle("Verifique conexión");
+            AlertDialog dialog = builder.create();
+            dialog.show();
         }
-
-    }*/
-
-
-
-
+    }
+    private boolean isNetworkConnected(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context
+                .CONNECTIVITY_SERVICE);
+        NetworkInfo info = connectivityManager.getActiveNetworkInfo();
+        if (info == null || !info.isConnected() || !info.isAvailable()) {
+            return false;
+        }
+        return true;
+    }
 }

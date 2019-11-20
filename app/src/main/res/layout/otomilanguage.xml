@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/inicio"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/otomi"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:gravity="center"
+    tools:context=".MainActivity">
+    <TextView
+        android:id="@+id/titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="TRADUCTOR OTOMI-ESPAÑOL"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/black"
+        android:textIsSelectable="false"
+        android:textSize="28sp"
+        android:gravity="center"
+        android:textStyle="bold|italic"
+        tools:layout_editor_absoluteX="-17dp"
+        tools:layout_editor_absoluteY="0dp"
+        android:layout_marginBottom="40dp"/>
+    <EditText
+        android:id="@+id/editWordO"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#DCFFFFFF"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textPersonName"
+        android:text="PALABRA A TRADUCIR"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="132dp"
+        tools:ignore="MissingConstraints" android:layout_marginBottom="40dp"
+        />
+
+
+    <Button
+
+        android:id="@+id/btnTranslateOE"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFC107"
+        android:text="TRADUCIR"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="75dp"
+        tools:layout_editor_absoluteY="326dp"
+
+        android:layout_marginBottom="40dp"/>
+
+
+    <TextView
+        android:id="@+id/txtTranslationE"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#E8FFFFFF"
+        android:text="TRADUCCIÓN"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="22dp"
+        tools:layout_editor_absoluteY="483dp" />
+
+
+</LinearLayout>

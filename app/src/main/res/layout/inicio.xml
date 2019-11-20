@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/inicio"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/otomi"
+    android:gravity="center"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_marginTop="50dp"
+        android:id="@+id/titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:background="@android:color/transparent"
+        android:text="    TRADUCTOR ESPAÑOL-OTOMÍ"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/black"
+        android:textIsSelectable="false"
+        android:textSize="28sp"
+        android:textStyle="bold|italic"
+
+        tools:layout_editor_absoluteX="-17dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <TextView
+        android:id="@+id/traduccion"
+        android:layout_width="367dp"
+        android:layout_height="93dp"
+        android:background="#BFFFEB3B"
+        android:text="   SELECCIONAR IDIOMA DE LA APP   \n    GI JWAHNI HÑÃ YA NT'OT'E"
+        android:textColor="#000000"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        tools:layout_editor_absoluteX="22dp"
+        tools:layout_editor_absoluteY="159dp" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|bottom"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/linear"
+                android:gravity="center"
+                android:foregroundGravity="center"
+
+                >
+                <Button
+                    android:id="@+id/btnSpanish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#FFC107"
+                    android:onClick="onClick"
+                    android:text="ESPAÑOL "
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+
+                    />
+                <Button
+                    android:id="@+id/btnOtomi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#FFC107"
+                    android:text="ÑÄÑHO"
+                    android:textSize="18sp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_above="@+id/btnSpanish"
+                    android:onClick="onClick"
+                    android:layout_centerHorizontal="true"
+                    tools:layout_editor_absoluteX="77dp"
+                    tools:layout_editor_absoluteY="430dp" />
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/btnLoginIn"
+                android:layout_below="@+id/linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:onClick="onClick"
+                android:background="@android:color/transparent"
+                android:text="INICIAR SESIÓN COMO ADMINISTRADOR"
+                android:textColor="#213DF3"
+                android:textSize="18sp"
+
+                android:textStyle="bold"
+
+                />
+        </RelativeLayout>
+
+
+
+
+
+
+</LinearLayout>

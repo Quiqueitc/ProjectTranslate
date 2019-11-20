@@ -33,7 +33,7 @@
         android:ems="10"
         android:gravity="center"
         android:inputType="textPersonName"
-        android:text="noya"
+        android:hint="noya"
         tools:layout_editor_absoluteX="30dp"
         tools:layout_editor_absoluteY="132dp"
         tools:ignore="MissingConstraints" android:layout_marginBottom="40dp"

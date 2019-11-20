@@ -25,6 +25,11 @@
         tools:layout_editor_absoluteX="64dp"
         tools:layout_editor_absoluteY="0dp" />
 
+    <ListView
+        android:id="@+id/listWord"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
     <Button
         android:id="@+id/btnSignOut"
         android:layout_width="207dp"

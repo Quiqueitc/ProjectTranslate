@@ -92,6 +92,7 @@ public class spanishlanguage extends AppCompatActivity {
             AlertDialog dialog = builder.create();
             dialog.show();
         }
+
     }
     private boolean isNetworkConnected(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context

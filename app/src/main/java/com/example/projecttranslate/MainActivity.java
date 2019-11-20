@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         btnSpanish = (Button) findViewById(R.id.btnSpanish);
         btnOtomi = (Button) findViewById(R.id.btnOtomi);
         btnLoginIn = (Button) findViewById(R.id.btnLoginIn);
+
         btnLoginIn.setOnClickListener(corkyListener);
         btnSpanish.setOnClickListener(corkyListener);
         btnOtomi.setOnClickListener(corkyListener);
@@ -53,14 +54,15 @@ public class MainActivity extends AppCompatActivity {
             }
             if (v.getId() == R.id.btnOtomi)  //option false E-O
             {
-                Intent intent = new Intent (v.getContext(), otomilanguage.class);
-                startActivity(intent);
+                Intent intent1 = new Intent (v.getContext(), otomilanguage.class);
+                startActivity(intent1);
                 Toast.makeText(MainActivity.this, "clic otomi", Toast.LENGTH_SHORT).show();
             }
             if (v.getId() == R.id.btnLoginIn)  //option false E-O
             {
-                Intent intent = new Intent (v.getContext(), administration.class);
-                startActivity(intent);
+
+                Intent intent2 = new Intent (v.getContext(), administration.class);
+                startActivity(intent2);
                 Toast.makeText(MainActivity.this, "clic otomi", Toast.LENGTH_SHORT).show();
             }
         }

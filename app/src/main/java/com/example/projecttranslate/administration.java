@@ -15,7 +15,7 @@ public class administration extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.administration);
-        btnClose = (Button) findViewById(R.id.btnTranslateEO);
+        btnClose = (Button) findViewById(R.id.btnClose);
         btnClose.setOnClickListener(corkyListener);
     }
 

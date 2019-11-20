@@ -17,6 +17,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".spanishlanguage"
+             />
+        <activity
+            android:name=".otomilanguage"
+             />
+        <activity
+            android:name=".administration"
+             />
+
     </application>
 
 </manifest>

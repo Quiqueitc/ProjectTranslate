@@ -61,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#FFC107"
-                    android:onClick="onClick"
+
                     android:text="ESPAÑOL "
                     android:textSize="18sp"
                     android:gravity="center"
@@ -77,7 +77,7 @@
                     android:textSize="18sp"
                     android:layout_marginLeft="50dp"
                     android:layout_above="@+id/btnSpanish"
-                    android:onClick="onClick"
+
                     android:layout_centerHorizontal="true"
                     tools:layout_editor_absoluteX="77dp"
                     tools:layout_editor_absoluteY="430dp" />
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:onClick="onClick"
+
                 android:background="@android:color/transparent"
                 android:text="INICIAR SESIÓN COMO ADMINISTRADOR"
                 android:textColor="#213DF3"

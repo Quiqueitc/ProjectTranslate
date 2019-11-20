@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "731732623664",
+    "firebase_url": "https://traductor-otomi-espanol-e1239.firebaseio.com",
+    "project_id": "traductor-otomi-espanol-e1239",
+    "storage_bucket": "traductor-otomi-espanol-e1239.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:731732623664:android:3e7bdac4a7dab8ed5108f5",
+        "android_client_info": {
+          "package_name": "com.example.projecttranslate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "731732623664-2c7o2qdvt5v338pb8s6jiljhl66gs437.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.projecttranslate",
+            "certificate_hash": "0aa99b4dd1913e209e8f03c886796e02082af173"
+          }
+        },
+        {
+          "client_id": "731732623664-qrnj8jqcfe5fc3amnkglm5p75ghnaj6j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLJGAVOVo7o9Ftrdi6Th9ljW8EozUIwAU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "731732623664-qrnj8jqcfe5fc3amnkglm5p75ghnaj6j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

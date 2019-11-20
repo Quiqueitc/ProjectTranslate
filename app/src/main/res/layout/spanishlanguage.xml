@@ -48,6 +48,7 @@
         android:background="#FFC107"
         android:text="TRADUCIR"
         android:textSize="18sp"
+
         tools:layout_editor_absoluteX="75dp"
         tools:layout_editor_absoluteY="326dp"
 

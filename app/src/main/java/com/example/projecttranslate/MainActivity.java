@@ -6,7 +6,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class MainActivity extends AppCompatActivity {
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +26,11 @@ public class MainActivity extends AppCompatActivity {
         Button btnClose = (Button) findViewById(R.id.btnClose);
         //btnLoginIn.setOnClickListener(this);
     }
+
+    private void leerDatos(int id_traduccion){
+
+    }
+
     public void onClick (View v)
     {
 

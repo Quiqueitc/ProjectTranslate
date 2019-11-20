@@ -1,5 +1,6 @@
 package com.example.projecttranslate;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,11 +21,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements dialog.returnDatos {
+    Context context;
+    String data;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-     private DatabaseReference mDatabase;
+    private DatabaseReference mDatabase;
     private Button btnSpanish,btnOtomi,btnLoginIn;
-
+    private TextView titulo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         btnLoginIn.setOnClickListener(corkyListener);
         btnSpanish.setOnClickListener(corkyListener);
         btnOtomi.setOnClickListener(corkyListener);
+        titulo=(TextView)findViewById(R.id.titulo);
+        context=this;
     }
 
     private void leerDatos(int id_traduccion){
@@ -60,13 +65,22 @@ public class MainActivity extends AppCompatActivity {
             }
             if (v.getId() == R.id.btnLoginIn)  //option false E-O
             {
-
-                Intent intent2 = new Intent (v.getContext(), administration.class);
-                startActivity(intent2);
-                Toast.makeText(MainActivity.this, "clic otomi", Toast.LENGTH_SHORT).show();
+                new dialog(context,MainActivity.this);
             }
         }
     };
+
+    @Override
+    public void returnDatos(String data) {
+        this.data=data;
+        titulo.setText(data);
+        Toast.makeText(context, "yaaa:  "+data, Toast.LENGTH_LONG).show();
+                /*Intent intent2 = new Intent (v.getContext(), administration.class);
+                startActivity(intent2);
+                Toast.makeText(MainActivity.this, "clic otomi", Toast.LENGTH_SHORT).show();*/
+        Toast.makeText(context, "datas    "+data, Toast.LENGTH_LONG).show();
+    }
+
     /*public void onClick (View v)
     {
 

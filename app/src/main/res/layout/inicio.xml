@@ -42,11 +42,24 @@
         android:layout_marginTop="20dp"
         tools:layout_editor_absoluteX="22dp"
         tools:layout_editor_absoluteY="159dp" />
-        <RelativeLayout
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:id="@+id/fab"
+        android:layout_gravity="end|right|center"
+        android:src="@drawable/ic_add"
+        android:tooltipText="Sugerir traducción de palabra"
+        >
+
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+    <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical|bottom"
             >
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -54,7 +67,6 @@
                 android:id="@+id/linear"
                 android:gravity="center"
                 android:foregroundGravity="center"
-
                 >
                 <Button
                     android:id="@+id/btnSpanish"
@@ -85,6 +97,7 @@
 
 
             <Button
+                android:layout_marginTop="10dp"
                 android:id="@+id/btnLoginIn"
                 android:layout_below="@+id/linear"
                 android:layout_width="match_parent"
@@ -96,7 +109,7 @@
                 android:text="INICIAR SESIÓN COMO ADMINISTRADOR"
                 android:textColor="#213DF3"
                 android:textSize="18sp"
-
+                android:layout_marginBottom="10dp"
                 android:textStyle="bold"
 
                 />

@@ -17,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,6 +47,16 @@ public class MainActivity extends AppCompatActivity implements dialog.returnDato
         btnOtomi.setOnClickListener(corkyListener);
         titulo=(TextView)findViewById(R.id.titulo);
         context=this;
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent (view.getContext(), addWord.class);
+                startActivity(intent);
+                Snackbar.make(view, "Contribuir", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
     }
 
     private void leerDatos(int id_traduccion){
@@ -57,14 +69,18 @@ public class MainActivity extends AppCompatActivity implements dialog.returnDato
             {
                 Intent intent = new Intent (v.getContext(), spanishlanguage.class);
                 startActivity(intent);
-                Toast.makeText(MainActivity.this, "clic spanish", Toast.LENGTH_SHORT).show();
+                Snackbar.make(v, "Esp-Oto", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+
 
             }
             if (v.getId() == R.id.btnOtomi)  //option false E-O
             {
                 Intent intent1 = new Intent (v.getContext(), otomilanguage.class);
                 startActivity(intent1);
-                Toast.makeText(MainActivity.this, "clic otomi", Toast.LENGTH_SHORT).show();
+                Snackbar.make(v, "Oto-Esp", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+
             }
             if (v.getId() == R.id.btnLoginIn)  //option false E-O
             {

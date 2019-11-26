@@ -25,23 +25,38 @@
         tools:layout_editor_absoluteX="-17dp"
         tools:layout_editor_absoluteY="0dp"
         android:layout_marginBottom="40dp"/>
-    <EditText
-        android:id="@+id/editWordE"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="#DCFFFFFF"
-        android:ems="10"
-        android:gravity="center"
-        android:inputType="textPersonName"
-        android:hint="PALABRA A TRADUCIR"
-        tools:layout_editor_absoluteX="30dp"
-        tools:layout_editor_absoluteY="132dp"
-        tools:ignore="MissingConstraints" android:layout_marginBottom="40dp"
-        />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center">
+        <EditText
+            android:id="@+id/editWordE"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:background="#DCFFFFFF"
+            android:ems="10"
+            android:gravity="center"
+            android:inputType="textPersonName"
+            android:hint="PALABRA A TRADUCIR"
+            tools:layout_editor_absoluteX="30dp"
+            tools:layout_editor_absoluteY="132dp"
+            tools:ignore="MissingConstraints" android:layout_marginBottom="40dp"
+            />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:background="#FFC107"
+            android:id="@+id/fabSpanish"
+            app:backgroundTint="@color/colorPrimary"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_volume" >
+        </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
-
+    </LinearLayout>
     <Button
-
         android:id="@+id/btnTranslateEO"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,20 +69,37 @@
 
         android:layout_marginBottom="40dp"/>
 
-
-    <TextView
-        android:id="@+id/txtTranslationO"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="#E8FFFFFF"
-        android:text="TRADUCCIÓN"
-        android:gravity="center"
-        android:textColor="#000000"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="22dp"
-        tools:layout_editor_absoluteY="483dp" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/txtTranslationO"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:background="#E8FFFFFF"
+            android:text="TRADUCCIÓN"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="22dp"
+            tools:layout_editor_absoluteY="483dp" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:background="#FFC107"
+            android:id="@+id/fabOtomi"
+            app:backgroundTint="@color/colorPrimary"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_volume" >
+        </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+    </LinearLayout>
 
 
 </LinearLayout>

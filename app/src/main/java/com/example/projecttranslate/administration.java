@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class administration extends AppCompatActivity {
@@ -41,6 +42,7 @@ public class administration extends AppCompatActivity {
         btnClose = (Button) findViewById(R.id.btnSignOut);
         btnClose.setOnClickListener(corkyListener);
         Toast.makeText(this, "Bienvenido administrador", Toast.LENGTH_SHORT).show();
+
         readRevisions();
         if (data!=null)
             Log.e("si es dis ",data.size()+"");
@@ -55,6 +57,8 @@ public class administration extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(administration.this, "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
+                revision revisionD=data.get(position);
+                AddTranslation(revisionD);
             }
         });
 
@@ -123,5 +127,13 @@ public class administration extends AppCompatActivity {
             }
         }
     };
+    public void AddTranslation(revision revisionD){
+
+
+
+    }
+    public void DeleteRevision(){
+
+    }
 
 }

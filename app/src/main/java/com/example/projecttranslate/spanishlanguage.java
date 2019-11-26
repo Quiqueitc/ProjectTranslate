@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,25 +16,51 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class spanishlanguage extends AppCompatActivity {
+import java.util.Locale;
+
+public class spanishlanguage extends AppCompatActivity implements TextToSpeech.OnInitListener {
     Button btnTranslateEO;
     EditText editWordE;
     TextView txtTranslationO;
+    FloatingActionButton fabSpanish,fabOtomi;
+    private TextToSpeech textToSpeech;
     private DatabaseReference mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.spanishlanguage);
         btnTranslateEO = (Button) findViewById(R.id.btnTranslateEO);
+        fabSpanish=findViewById(R.id.fabSpanish);
+        fabOtomi=findViewById(R.id.fabOtomi);
         btnTranslateEO.setOnClickListener(corkyListener);
         editWordE=(EditText) findViewById(R.id.editWordE);
         txtTranslationO=(TextView) findViewById(R.id.txtTranslationO);
+        textToSpeech = new TextToSpeech( this, (TextToSpeech.OnInitListener) this);
+
+        fabSpanish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textToSpeech.setLanguage( new Locale( "spa", "MEX" ) );
+                speak( editWordE.getText().toString() );
+
+            }
+        });
+        fabOtomi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textToSpeech.setLanguage( new Locale( "spa", "MEX" ) );
+                speak( txtTranslationO.getText().toString() );
+
+            }
+        });
+
     }
      private View.OnClickListener corkyListener = new View.OnClickListener() {
         public void onClick(View v) {
@@ -102,5 +129,19 @@ public class spanishlanguage extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+    private void speak( String str )
+    {
+        textToSpeech.speak( str, TextToSpeech.QUEUE_FLUSH, null );
+        textToSpeech.setSpeechRate( 0.0f );
+        textToSpeech.setPitch( 0.0f );
+    }
+
+    @Override
+    public void onInit(int status) {
+        if ( status == TextToSpeech.LANG_MISSING_DATA | status == TextToSpeech.LANG_NOT_SUPPORTED )
+        {
+            Toast.makeText( this, "ERROR LANG_MISSING_DATA | LANG_NOT_SUPPORTED", Toast.LENGTH_SHORT ).show();
+        }
     }
 }

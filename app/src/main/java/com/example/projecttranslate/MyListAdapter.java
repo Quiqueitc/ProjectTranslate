@@ -11,15 +11,21 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MyListAdapter extends BaseAdapter {
     private Context context;
+    private DatabaseReference mDatabase;
 
     public MyListAdapter(Context context, ArrayList<revision> listItems) {
         this.context = context;
         this.listItems = listItems;
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     private ArrayList<revision>listItems;
@@ -52,12 +58,24 @@ public class MyListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "Aceptada   esp"+item.getEspanol()+"  oto "+item.getOtomi(), Toast.LENGTH_SHORT).show();
+                long leftLimit = 1L;
+                long rightLimit = 10000000L;
+                long generatedLong = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
+
+                mDatabase.child("traduccion").push().setValue(new translate(item.getEspanol(),item.getOtomi(),generatedLong));
             }
         });
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "Rechazada  esp"+item.getEspanol()+"  oto "+item.getOtomi(), Toast.LENGTH_SHORT).show();
+              /*  mDatabase.child("traduccion");
+                HashMap<Long,translate> newWord=new HashMap<>();
+                Long number=Long.parseLong(String.valueOf((Math.random()*10000) +1));
+                newWord.put(number, new translate(revisionD.getEspanol(),revisionD.getOtomi(),number));*/
+
+                //newWord.put("gracehop", new translate("December 9, 1906", "Grace Hopper"));
+
             }
         });
         txtSpanish.setText(item.getEspanol());

@@ -26,6 +26,9 @@
         <activity
             android:name=".administration"
              />
+        <activity
+            android:name=".addWord"
+             />
 
     </application>
 

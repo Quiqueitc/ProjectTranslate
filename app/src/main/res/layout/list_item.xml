@@ -14,43 +14,53 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
+        android:background="#CEFFF2"
         >
+
         <TextView
             android:id="@+id/txtSpanish"
-            android:background=""
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+
+            android:layout_width="50dp"
+
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textColor="@android:color/black"
             android:textSize="20sp"
-            android:text="Palabra"></TextView>
+            android:text="Palabra">
+
+        </TextView>
         <TextView
             android:layout_marginLeft="20dp"
             android:id="@+id/txtOtomi"
+
             android:layout_gravity="center"
             android:textColor="@android:color/black"
             android:textSize="20sp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="Palabra"></TextView>
-        <Button
-            android:id="@+id/btnAdd"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:background="#77AB31"
-            android:text="Aceptar"
+            android:text="Palabra">
+
+        </TextView>
+        <Button
+            android:background="@drawable/add"
+            android:id="@+id/btnAdd"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="right"
+
             android:textSize="18sp"
             android:layout_marginLeft="50dp"
-            android:layout_above="@+id/txtOtomi"
+                        android:layout_above="@+id/txtOtomi"
             android:layout_centerHorizontal="true"
             android:radius="0.1dp"
             />
         <Button
             android:id="@+id/btnDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#AB4031"
-            android:text="Rechazar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/delete"
+
+            android:layout_gravity="center"
             android:textSize="18sp"
             android:layout_marginLeft="50dp"
             android:layout_centerHorizontal="true" />

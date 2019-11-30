@@ -3,15 +3,24 @@ package com.example.projecttranslate;
 public class translate {
     private String espanol;
     private String otomi;
-    private Long id_traduccion;
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    private String uid;
 
     public translate() {
     }
 
-    public translate(String espanol, String otomi, Long id_traduccion) {
+    public translate(String espanol, String otomi, String uid) {
         this.espanol = espanol;
         this.otomi = otomi;
-        this.id_traduccion = id_traduccion;
+        this.uid = uid;
     }
 
     public String getEspanol() {
@@ -30,13 +39,6 @@ public class translate {
         this.otomi = otomi;
     }
 
-    public Long getId_traduccion() {
-        return id_traduccion;
-    }
-
-    public void setId_traduccion(Long id_traduccion) {
-        this.id_traduccion = id_traduccion;
-    }
 
 
 

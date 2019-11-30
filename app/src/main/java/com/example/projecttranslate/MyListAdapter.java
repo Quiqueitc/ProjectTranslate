@@ -11,12 +11,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 public class MyListAdapter extends BaseAdapter {
     private Context context;
@@ -57,18 +59,21 @@ public class MyListAdapter extends BaseAdapter {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Aceptada   esp"+item.getEspanol()+"  oto "+item.getOtomi(), Toast.LENGTH_SHORT).show();
-                long leftLimit = 1L;
-                long rightLimit = 10000000L;
-                long generatedLong = leftLimit + (long) (Math.random() * (rightLimit - leftLimit));
+                translate translate=new translate(item.getEspanol(),item.getOtomi(),item.getUid());
+                mDatabase.child("translate").child(translate.getUid()).setValue(translate);
+                Snackbar.make(v, "Agregada con éxito, la traduccioón pasará a revisión.", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                delete(item);
+                listItems.remove(position);
 
-                mDatabase.child("traduccion").push().setValue(new translate(item.getEspanol(),item.getOtomi(),generatedLong));
             }
         });
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Rechazada  esp"+item.getEspanol()+"  oto "+item.getOtomi(), Toast.LENGTH_SHORT).show();
+                delete(item);
+                Snackbar.make(v, "Traducción eliminada con éxito.", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
               /*  mDatabase.child("traduccion");
                 HashMap<Long,translate> newWord=new HashMap<>();
                 Long number=Long.parseLong(String.valueOf((Math.random()*10000) +1));
@@ -78,9 +83,12 @@ public class MyListAdapter extends BaseAdapter {
 
             }
         });
-        txtSpanish.setText(item.getEspanol());
-        txtOtomi.setText(item.getOtomi());
+        txtSpanish.setText("Esp: "+item.getEspanol());
+        txtOtomi.setText("Oto: " +item.getOtomi());
 
         return convertView;
+    }
+    public void delete(revision item){
+        mDatabase.child("revisions").child(item.getUid()).removeValue();
     }
 }

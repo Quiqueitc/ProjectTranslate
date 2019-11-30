@@ -1,6 +1,7 @@
 package com.example.projecttranslate;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,70 +27,107 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Locale;
 
-public class otomilanguage extends AppCompatActivity  implements TextToSpeech.OnInitListener
-{
-        Button btnTranslateOE;
-        FloatingActionButton fabSpanish,fabOtomi;
-        EditText editWordO;
-        TextView txtTranslationE;
-        DatabaseReference mDatabase;
-        private TextToSpeech textToSpeech;
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
+public class otomilanguage extends AppCompatActivity implements TextToSpeech.OnInitListener {
+    Button btnTranslateOE;
+    FloatingActionButton fabSpanish, fabOtomi;
+    EditText editWordO;
+    TextView txtTranslationE;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference mDatabase;
+    private TextToSpeech textToSpeech;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.otomilanguage);
-            btnTranslateOE = (Button) findViewById(R.id.btnTranslateOE);
-            fabSpanish=findViewById(R.id.fabSpanish);
-            fabOtomi=findViewById(R.id.fabOtomi);
-            editWordO=(EditText) findViewById(R.id.editWordO);
-            txtTranslationE=(TextView) findViewById(R.id.txtTranslationE);
+        InitializeFB();
+        btnTranslateOE = (Button) findViewById(R.id.btnTranslateOE);
+        fabSpanish = findViewById(R.id.fabSpanish);
+        fabOtomi = findViewById(R.id.fabOtomi);
+        editWordO = (EditText) findViewById(R.id.editWordO);
+        txtTranslationE = (TextView) findViewById(R.id.txtTranslationE);
 
-            btnTranslateOE.setOnClickListener(corkyListener);
+        btnTranslateOE.setOnClickListener(corkyListener);
 
-            textToSpeech = new TextToSpeech( this, (TextToSpeech.OnInitListener) this);
-            fabSpanish.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    textToSpeech.setLanguage( new Locale( "spa", "ESP" ) );
-                    speak( txtTranslationE.getText().toString() );
+        textToSpeech = new TextToSpeech(this, (TextToSpeech.OnInitListener) this);
+        fabSpanish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textToSpeech.setLanguage(new Locale("spa", "ESP"));
+                speak(txtTranslationE.getText().toString());
 
-                }
-            });
-            fabOtomi.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    textToSpeech.setLanguage( new Locale( "spa", "ESP" ) );
-                    speak( editWordO.getText().toString() );
+            }
+        });
+        fabOtomi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textToSpeech.setLanguage(new Locale("spa", "ESP"));
+                speak(editWordO.getText().toString());
 
-                }
-            });
+            }
+        });
 
 
     }
+    public void InitializeFB(){
+        /*FirebaseApp.initializeApp(this);
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseDatabase.setPersistenceEnabled(true);*/
+        mDatabase = firebaseDatabase.getInstance().getReference();
+    }
+
     private View.OnClickListener corkyListener = new View.OnClickListener() {
         public void onClick(View v) {
 
             if (v.getId() == R.id.btnTranslateOE)  //option false E-O
             {
-               readTranslate(editWordO.getText().toString());
-                Toast.makeText(otomilanguage.this, "clic oto-esp", Toast.LENGTH_SHORT).show();
+                readTranslate(editWordO.getText().toString());
+                //Toast.makeText(otomilanguage.this, "clic oto-esp", Toast.LENGTH_SHORT).show();
             }
 
 
         }
     };
     String translation = null;
-    public  void readTranslate(final String word)  //palabra a traducir y si option es true es te O-E si es false es de E-O
+    boolean boo=false;
+    public void readTranslate(final String word)  //palabra a traducir y si option es true es te O-E si es false es de E-O
     {
-        final String w=word.replaceAll("\\s","");//quitar los espacios en blanco
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        final String w = word.replaceAll("\\s", "");//quitar los espacios en blanco
+        //mDatabase = FirebaseDatabase.getInstance().getReference();
         if (isNetworkConnected(otomilanguage.this) == true) {
-            mDatabase.child("traduccion").addValueEventListener(new ValueEventListener() {
+            mDatabase.child("translate").addValueEventListener(new ValueEventListener() {
+
                 @Override
                 public void onDataChange( DataSnapshot dataSnapshot) {
+                    Log.e("datosossssss",dataSnapshot.getValue()+"  ");
                     for(final DataSnapshot snapshot: dataSnapshot.getChildren()){
                         Log.e("Data  ",snapshot.getValue()+"");
-                        mDatabase.child("traduccion").child(snapshot.getKey()).addValueEventListener(new ValueEventListener() {
+                        System.out.println("esssssssssssss "+snapshot.getKey()+"  "+snapshot.child(snapshot.getKey()).getValue());
+                        translate translate = snapshot.getValue(translate.class);
+                        String espanol = translate.getEspanol();
+                        String otomi = translate.getOtomi();
+                        Log.e("ESPAÑOL:   ", espanol + "    OTOMI:   " + otomi + "   buscalda: " + w);
+                        if (w.equalsIgnoreCase(otomi)) {
+                            boo=true;
+                            System.out.println("encontrada    sisis  "+espanol);
+                            translation = espanol;
+                            txtTranslationE.setText(translation);
+                            Log.e("no", translation);
+                        }
+                    }
+                    if (boo) {
+                        txtTranslationE.setText(translation);
+                        boo=false;
+                    }
+                    else
+                        txtTranslationE.setText("No encontrada");
+
+                    //Toast.makeText(context, "Error en contraseña", Toast.LENGTH_SHORT).show();
+                }
+               /* public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (final DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Log.e("Data  ", snapshot.getValue() + "");
+                        mDatabase.child("translate").child(snapshot.getKey()).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 translate tran = snapshot.getValue(translate.class);
@@ -101,23 +140,22 @@ public class otomilanguage extends AppCompatActivity  implements TextToSpeech.On
                                     Log.e("no", translation);
                                 }
                             }
+
                             @Override
-                            public void onCancelled( DatabaseError databaseError) {
+                            public void onCancelled(DatabaseError databaseError) {
 
                             }
                         });
                     }
                     txtTranslationE.setText("No encontrada");
-                }
+                }*/
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
 
                 }
             });
-        }
-        else
-        {
+        } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(otomilanguage.this);
             builder.setMessage("Conexión incorrecta")
                     .setTitle("Verifique conexión");
@@ -125,6 +163,7 @@ public class otomilanguage extends AppCompatActivity  implements TextToSpeech.On
             dialog.show();
         }
     }
+
     private boolean isNetworkConnected(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context
                 .CONNECTIVITY_SERVICE);
@@ -134,18 +173,17 @@ public class otomilanguage extends AppCompatActivity  implements TextToSpeech.On
         }
         return true;
     }
-    private void speak( String str )
-    {
-        textToSpeech.speak( str, TextToSpeech.QUEUE_FLUSH, null );
-        textToSpeech.setSpeechRate( 0.0f );
-        textToSpeech.setPitch( 0.0f );
+
+    private void speak(String str) {
+        textToSpeech.speak(str, TextToSpeech.QUEUE_FLUSH, null);
+        textToSpeech.setSpeechRate(0.0f);
+        textToSpeech.setPitch(0.0f);
     }
 
     @Override
     public void onInit(int status) {
-        if ( status == TextToSpeech.LANG_MISSING_DATA | status == TextToSpeech.LANG_NOT_SUPPORTED )
-        {
-            Toast.makeText( this, "ERROR LANG_MISSING_DATA | LANG_NOT_SUPPORTED", Toast.LENGTH_SHORT ).show();
+        if (status == TextToSpeech.LANG_MISSING_DATA | status == TextToSpeech.LANG_NOT_SUPPORTED) {
+            Toast.makeText(this, "ERROR LANG_MISSING_DATA | LANG_NOT_SUPPORTED", Toast.LENGTH_SHORT).show();
         }
     }
 }

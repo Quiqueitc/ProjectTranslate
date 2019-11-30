@@ -3,17 +3,25 @@ package com.example.projecttranslate;
 public class revision {
     String espanol;
     String otomi;
-    Long id_revision;
-    Long estatus;
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    String uid;
 
     public revision() {
     }
 
-    public revision(String espanol, String otomi, Long id_revision, Long estatus) {
+    public revision(String espanol, String otomi, String uid) {
         this.espanol = espanol;
         this.otomi = otomi;
-        this.id_revision = id_revision;
-        this.estatus = estatus;
+        this.uid = uid;
+
     }
 
 
@@ -33,21 +41,6 @@ public class revision {
         this.otomi = otomi;
     }
 
-    public Long getId_revision() {
-        return id_revision;
-    }
-
-    public void setId_revision(Long id_revision) {
-        this.id_revision = id_revision;
-    }
-
-    public Long getEstatus() {
-        return estatus;
-    }
-
-    public void setEstatus(Long estatus) {
-        this.estatus = estatus;
-    }
 
 
 }

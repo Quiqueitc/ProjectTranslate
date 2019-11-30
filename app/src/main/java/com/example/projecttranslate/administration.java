@@ -16,9 +16,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,7 +34,7 @@ import java.util.List;
 public class administration extends AppCompatActivity {
     Button btnClose;
     private MyListAdapter myListAdapter;
-    private ArrayList<revision> data = new ArrayList<>();
+    private ArrayList<revision> data = new ArrayList<revision>();
     private DatabaseReference mDatabase;
     private ListView listWord;
     @Override
@@ -44,8 +46,10 @@ public class administration extends AppCompatActivity {
         Toast.makeText(this, "Bienvenido administrador", Toast.LENGTH_SHORT).show();
 
         readRevisions();
-        if (data!=null)
-            Log.e("si es dis ",data.size()+"");
+        View v=new View(this);
+        if (data==null)
+            Snackbar.make(v,"NO hay traducciones por revisar.", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
         listWord= (ListView) findViewById(R.id.listWord);
         //generateListContent();
 
@@ -69,12 +73,34 @@ public class administration extends AppCompatActivity {
     {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         if (isNetworkConnected(administration.this) == true) {
-            mDatabase.child("revisiones").addValueEventListener(new ValueEventListener() {
+
+            mDatabase.child("revisions").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    data.clear();
+                    for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()){
+                        revision revs = objSnaptshot.getValue(revision.class);
+                        data.add(revs);
+                        Log.e("info",revs.getUid()+"  e  "+revs.getEspanol()+"   o  "+revs.getOtomi());
+                        /*arrayAdapterPersona = new ArrayAdapter<Persona>(MainActivity.this, android.R.layout.simple_list_item_1, listPerson);
+                        listV_personas.setAdapter(arrayAdapterPersona);*/
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+
+            /*mDatabase.child("revisions").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange( DataSnapshot dataSnapshot) {
+                    data.clear();
                     for(final DataSnapshot snapshot: dataSnapshot.getChildren()){
                         Log.e("Data  ",snapshot.getValue()+"");
-                        mDatabase.child("revisiones").child(snapshot.getKey()).addValueEventListener(new ValueEventListener() {
+                        mDatabase.child("revisions").child(snapshot.getKey()).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 revision rev = snapshot.getValue(revision.class);
@@ -88,6 +114,7 @@ public class administration extends AppCompatActivity {
                             }
                         });
                     }
+
                     //txtTranslationO.setText("No encontrada");
                 }
 
@@ -95,7 +122,7 @@ public class administration extends AppCompatActivity {
                 public void onCancelled(DatabaseError databaseError) {
 
                 }
-            });
+            });*/
         }
         else
         {

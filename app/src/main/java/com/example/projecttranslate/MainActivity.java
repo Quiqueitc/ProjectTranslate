@@ -13,23 +13,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
+
 
 public class MainActivity extends AppCompatActivity implements dialog.returnDatos {
     Context context;
     String data;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseDatabase firebaseDatabase;
     private DatabaseReference mDatabase;
     private Button btnSpanish,btnOtomi,btnLoginIn;
     private TextView titulo;
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements dialog.returnDato
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inicio);
+        InitializeFB();
         btnSpanish = (Button) findViewById(R.id.btnSpanish);
         btnOtomi = (Button) findViewById(R.id.btnOtomi);
         btnLoginIn = (Button) findViewById(R.id.btnLoginIn);
@@ -61,6 +64,12 @@ public class MainActivity extends AppCompatActivity implements dialog.returnDato
 
     private void leerDatos(int id_traduccion){
 
+    }
+    public void InitializeFB(){
+        FirebaseApp.initializeApp(this);
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseDatabase.setPersistenceEnabled(true);
+        mDatabase = firebaseDatabase.getReference();
     }
 
     private View.OnClickListener corkyListener = new View.OnClickListener() {
@@ -97,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements dialog.returnDato
     public  void signInValite(final String pass)  //palabra a traducir y si option es true es te O-E si es false es de E-O
     {
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        //mDatabase = FirebaseDatabase.getInstance().getReference();
         if (isNetworkConnected(MainActivity.this) == true) {
             mDatabase.child("administradores").addValueEventListener(new ValueEventListener() {
                 @Override
@@ -108,10 +117,11 @@ public class MainActivity extends AppCompatActivity implements dialog.returnDato
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 administrators ad = snapshot.getValue(administrators.class);
+
                                 String contrasena = ad.getContrasena();
-                                Long id = ad.getId_admin();
-                                Log.e("pass:   ", contrasena + "    OTOMI:   " + id + "   search: " + pass);
-                                if (pass.equalsIgnoreCase(contrasena)) {
+
+                                Log.e("pass:   ", contrasena + "    OTOMI:   " + "   search: " + pass);
+                                if (pass.equals(contrasena)) {
                                     Intent intent2 = new Intent (getApplicationContext(), administration.class);
                                     startActivity(intent2);
                                 }
